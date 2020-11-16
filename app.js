@@ -30,8 +30,11 @@ app.use((req, res, next) => {
 
 /***** ROUTES IMPORT *****/
 const postsRoutes = require('./api/routes/posts');
-
+const exercicesRoutes = require('./api/routes/exercices');
+const usersRoutes = require('./api/routes/users');
 /***** ROUTES *****/
 app.use('/posts', postsRoutes);
+app.use('/exercices', exercicesRoutes);
+app.use('/users', usersRoutes);
 
 module.exports = app;

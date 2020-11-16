@@ -9,7 +9,7 @@ const Post = require('../models/post');
 /***** GET REQUEST *****/
 /*** FIND ALL POSTS ***/
 router.get('/', (req, res, next) => {
-    Post.find().exec().then(doc => {
+    Post.find().sort('-date').exec().then(doc => {
         console.log(doc);
         res.status(200).json(doc);
     }).catch(error => {
@@ -37,6 +37,7 @@ router.get('/:idPost', (req, res, next) => {
 /*** FIND BY ID USER ***/
 
 /***** POST RESQUEST *****/
+/*** POST A POST ***/
 router.post('/', (req, res, next) => {
     const post = new Post({
         _id: new mongoose.Types.ObjectId(),
@@ -44,6 +45,7 @@ router.post('/', (req, res, next) => {
         likes: 0, // I have to put it 0 
         date: Date.now(),
         image: req.body.image,
+        idUser: req.body.idUser
     });
     post.save().then(result => {
         console.log(result);
@@ -52,7 +54,11 @@ router.post('/', (req, res, next) => {
         });
     }).catch(error => console.log(error));
 });
+/*** POST A COMMENT ***/
+
+
 /***** DELETE REQUEST *****/
+/*** DELETE A POST ***/
 router.delete('/:idPost', (req, res, next) => {
     const id = req.params.idPost;
     Post.remove({ _id: id }).exec().then(result => {
@@ -62,7 +68,11 @@ router.delete('/:idPost', (req, res, next) => {
         res.status(500).json({ error: error });
     });
 });
+
+/*** DELETE A COMMENT ***/
+
 /***** UPDATE REQUEST *****/
+/*** UPDATE A POST ***/
 router.patch('/:idPost', (req, res, next) => {
     const id = req.params.idPost;
     const updateOps = {};
@@ -77,4 +87,7 @@ router.patch('/:idPost', (req, res, next) => {
         res.status(500).json({ error: error });
     });
 });
+
+/*** UPDATE A COMMENT */
+
 module.exports = router;
