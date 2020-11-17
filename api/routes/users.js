@@ -6,6 +6,23 @@ const mongoose = require('mongoose');
 /***** MODELS IMPORT *****/
 const User = require('../models/user');
 
+/***** GET REQUEST *****/
+/*** GET A USER ***/
+router.get('/:idUser', (req, res, next) => {
+    const id = req.params.idUser;
+    User.findById(id).exec.then(doc => {
+        if (doc) {
+            console.log(doc);
+            res.status(200).json(doc);
+        } else {
+            res.status(404).json({ message: "404 NOT FOUND" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.status(500).json({ error: error });
+    });
+});
+
 /***** POST RESQUEST *****/
 /*** POST A USER ***/
 router.post('/', (req, res, next) => {
@@ -55,17 +72,17 @@ router.put('/runs/:idUser', (req, res, next) => {
                 date: Date.now()
             }]
         }
-    }, function(err, result) {
+    }, function (err, result) {
         if (err) {
-          res.send(err);
+            res.send(err);
         } else {
-          res.send(result);
+            res.send(result);
         }
-      });
+    });
 });
 
-/*** PUT A ACTIVITY ***/
-router.put('/activities/:idUser', (req, res, next) => {
+/*** PUT A HEALTH INFORMATION ***/
+router.put('/hi/:idUser', (req, res, next) => {
     const id = req.params.idUser;
     User.updateOne({ _id: id }, {
         $addToSet: {
@@ -76,17 +93,17 @@ router.put('/activities/:idUser', (req, res, next) => {
                 height: req.body.healthInformation.height,
             }],
         }
-    }, function(err, result) {
+    }, function (err, result) {
         if (err) {
-          res.send(err);
+            res.send(err);
         } else {
-          res.send(result);
+            res.send(result);
         }
-      });
+    });
 });
 
-/*** PUT A HEALTH INFORMATION ***/
-router.put('/hi/:idUser', (req, res, next) => {
+/*** PUT A ACTIVITY ***/
+router.put('/activities/:idUser', (req, res, next) => {
     const id = req.params.idUser;
     User.updateOne({ _id: id }, {
         $addToSet: {
@@ -95,13 +112,13 @@ router.put('/hi/:idUser', (req, res, next) => {
                 _idExercice: req.body.activities._idExercice,
             }],
         }
-    }, function(err, result) {
+    }, function (err, result) {
         if (err) {
-          res.send(err);
+            res.send(err);
         } else {
-          res.send(result);
+            res.send(result);
         }
-      });
+    });
 });
 
 /***** DELETE REQUEST *****/
@@ -116,6 +133,8 @@ router.delete('/:idUser', (req, res, next) => {
 });
 
 /***** LOGIN AND SIGNUP *****/
+/*** SIGNUP ***/
 
+/*** LOGIN ***/
 
 module.exports = router;
