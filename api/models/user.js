@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    fullName: String,
-    phone: Number,
-    email: String,
-    password: String,
-    sexe: String,
-    birthday: Date,
+    fullName: { type: String, require: true },
+    phone: { type: Number, require: true, unique: true },
+    email: { type: String, require: true, unique: true },
+    password: { type: String, require: true },
+    sexe: { type: String, require: true },
+    birthday: { type: Date, require: true },
     healthInformation: [{
         calories: { type: Number, default: 0 },
         date: Date,
@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     }],
     activities: [{
         sum: { type: Number, default: 0 },
-        _idExercice: {type: String, default: null}
+        _idExercice: { type: String, default: null }
     }],
 });
 
