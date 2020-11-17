@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
     sexe: { type: String, require: true },
     birthday: { type: Date, require: true },
     healthInformation: [{
-        calories: { type: Number, default: 0 },
+       calories: { type: Number, default: 0 },
         date: Date,
         weight: Number,
         height: Number,
