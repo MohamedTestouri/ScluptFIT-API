@@ -78,6 +78,7 @@ router.put('/comments/:idPost', (req, res, next) => {
             comments: [{
                 text: req.body.comments.text,
                 date: Date.now(),
+                idUser : req.body.comments.idUser
             }],
         }
     }, function (err, result) {
@@ -102,6 +103,13 @@ router.delete('/:idPost', (req, res, next) => {
 });
 
 /*** DELETE A COMMENT ***/
+/*
+router.delete('/comments/delete/:idPost&:idComment', (req,res,next)=>{
+    const idPost = req.params.idPost;
+    const idComment = req.params.idComment;
+    Post.findOneAndDelete
+});
+*/ 
 
 /***** UPDATE REQUEST *****/
 /*** UPDATE A POST ***/
@@ -121,25 +129,16 @@ router.patch('/:idPost', (req, res, next) => {
 });
 
 /*** UPDATE A COMMENT */
-router.patch('/comments/:idPost&:idComment', (req, res, next) => {
+router.patch('/comments/update/:idPost&:idComment', (req, res, next) => {
     const idPost = req.params.idPost;
     const idComment = req.params.idComment;
-    Post.updateOne({
-        _id: idPost, comments: {
-            _id: idComment,
+    Post.findOneAndUpdate({ _id: idPost }, { $set: { comments:{text: req.body.comments.text} } }, {comments:{_id: idComment}} ,function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
         }
-    },
-        {
-            comments: {
-                text: req.body.comments.text,
-            }
-        }, function (err, result) {
-            if (err) {
-                res.send(err);
-            } else {
-                res.send(result);
-            }
-        });
+    });
 });
 
 module.exports = router;
