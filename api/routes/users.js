@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 /***** MODELS IMPORT *****/
 const User = require('../models/user');
@@ -30,15 +31,11 @@ router.get('/find/:idUser', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
     User.find({ email: req.body.email }).exec().then(user => {
         if (user >= 1) {
-            return res.status(409).json({
-                message: 'Mail Exists',
-            });
+            return res.status(409).json({ message: 'Mail Exists', });
         } else {
             bcrypt.hash(req.body.password, 10, (error, hash) => {
                 if (error) {
-                    return res.status(500).json({
-                        error: error,
-                    });
+                    return res.status(500).json({ error: error, });
                 } else {
                     const user = new User({
                         _id: new mongoose.Types.ObjectId(),
@@ -48,7 +45,7 @@ router.post('/signup', (req, res, next) => {
                         password: hash,
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
-                        healthInformation: [{
+                        /*healthInformation: [{
                             calories: req.body.healthInformation.calories,
                             date: Date.now(),
                             weight: req.body.healthInformation.weight,
@@ -63,21 +60,20 @@ router.post('/signup', (req, res, next) => {
                         activities: [{
                             sum: req.body.sum,
                             _idExercice: req.body.activities._idExercice,
-                        }],
+                        }],*/
                     });
-                };
+                    user.save().then(result => {
+                        console.log(result);
+                        res.status(201).json({
+                            message: "User Created",
+                            user: result,
+                        });
+                    }).catch(error => console.log(error));
+                }
             });
-        };
+        }
     });
-    user.save().then(result => {
-        console.log(result);
-        res.status(201).json({
-            message: "User Created",
-            user: result,
-        });
-    }).catch(error => console.log(error));
 });
-
 /*** LOGIN ***/
 router.post('/login', (req, res, next) => {
     User.find({ email: req.body.email }).exec().then(user => {
