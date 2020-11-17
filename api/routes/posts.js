@@ -35,6 +35,21 @@ router.get('/:idPost', (req, res, next) => {
 })
 
 /*** FIND BY ID USER ***/
+router.get('/find/:idUser', (req, res, next) => {
+    const id = req.params.idUser;
+    Post.find({ idUser: id })
+        .exec().then(doc => {
+            if (doc) {
+                console.log(doc);
+                res.status(200).json(doc);
+            } else {
+                res.status(404).json({ message: "404 NOT FOUND" });
+            }
+        }).catch(error => {
+            console.log(error);
+            res.status(500).json({ error: error });
+        });
+});
 
 /***** POST RESQUEST *****/
 /*** POST A POST ***/
@@ -54,8 +69,25 @@ router.post('/', (req, res, next) => {
         });
     }).catch(error => console.log(error));
 });
-/*** POST A COMMENT ***/
-
+/***** PUT RESQUEST *****/
+/*** PUT A COMMENT ***/
+router.put('/comments/:idPost', (req, res, next) => {
+    const id = req.params.idPost;
+    Post.updateOne({ _id: id }, {
+        $addToSet: {
+            comments: [{
+                text: req.body.comments.text,
+                date: Date.now(),
+            }],
+        }
+    }, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
 
 /***** DELETE REQUEST *****/
 /*** DELETE A POST ***/
@@ -89,5 +121,25 @@ router.patch('/:idPost', (req, res, next) => {
 });
 
 /*** UPDATE A COMMENT */
+router.patch('/comments/:idPost&:idComment', (req, res, next) => {
+    const idPost = req.params.idPost;
+    const idComment = req.params.idComment;
+    Post.updateOne({
+        _id: idPost, comments: {
+            _id: idComment,
+        }
+    },
+        {
+            comments: {
+                text: req.body.comments.text,
+            }
+        }, function (err, result) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send(result);
+            }
+        });
+});
 
 module.exports = router;

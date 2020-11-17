@@ -10,20 +10,20 @@ const userSchema = mongoose.Schema({
     sexe: String,
     birthday: Date,
     healthInformation: [{
-        calories: {type: Number, default: 0},
+        calories: { type: Number, default: 0 },
         date: Date,
         weight: Number,
         height: Number,
     }],
     runs: [{
-        calories: {type: Number, default: 0},
-        distance: {type: Number, default: 0},
-        duration: {type: Number, default: 0},
-        date: {type: Date, default: null},
+        calories: { type: Number, default: 0 },
+        distance: { type: Number, default: 0 },
+        duration: { type: Number, default: 0 },
+        date: { type: Date, default: null },
     }],
     activities: [{
-        sum: {type: Number, default: 0},
-        _idExercice: {type: String, default: null},
+        sum: { type: Number, default: 0 },
+        _idExercice: {type: String, default: null}
     }],
 });
 

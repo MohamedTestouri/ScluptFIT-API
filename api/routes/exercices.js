@@ -35,9 +35,9 @@ router.get('/:idExercice', (req, res, next) => {
 });
 
 /*** FIND BY CATEGORY EXERCICES ***/
-router.get('/:category', (req, res, next) => {
+router.get('/find/:category', (req, res, next) => {
     const category = req.params.category;
-    Exercice.find()
+    Exercice.find({category: category})
     .exec().then(doc => {
         if (doc) {
             console.log(doc);

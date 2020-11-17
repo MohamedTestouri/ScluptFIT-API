@@ -11,28 +11,28 @@ const User = require('../models/user');
 router.post('/', (req, res, next) => {
     const user = new User({
         _id: new mongoose.Types.ObjectId(),
-        fullName : req.body.fullName,
+        fullName: req.body.fullName,
         phone: req.body.phone,
         email: req.body.email,
         password: req.body.password,
         sexe: req.body.sexe,
         birthday: req.body.birthday,
-        healthInformation: {
-            calories: req.body.calories,
+        healthInformation: [{
+            calories: req.body.healthInformation.calories,
             date: Date.now(),
-            weight: req.body.weight,
-            height: req.body.height,
-        },
-        runs: {
-            calories: req.body.calories,
-            distance: req.body.distance,
-            duration: req.body.duration,
+            weight: req.body.healthInformation.weight,
+            height: req.body.healthInformation.height,
+        }],
+        runs: [{
+            calories: req.body.runs.calories,
+            distance: req.body.runs.distance,
+            duration: req.body.runs.duration,
             date: Date.now()
-        },
-        activities: {
+        }],
+        activities: [{
             sum: req.body.sum,
-            _idExercice: req.body._idExercice,
-        },
+            _idExercice: req.body.activities._idExercice,
+        }],
     });
     user.save().then(result => {
         console.log(result);
@@ -40,6 +40,68 @@ router.post('/', (req, res, next) => {
             user: result,
         });
     }).catch(error => console.log(error));
+});
+
+/***** PUT RESQUEST *****/
+/*** PUT A RUN ***/
+router.put('/runs/:idUser', (req, res, next) => {
+    const id = req.params.idUser;
+    User.updateOne({ _id: id }, {
+        $addToSet: {
+            runs: [{
+                calories: req.body.runs.calories,
+                distance: req.body.runs.distance,
+                duration: req.body.runs.duration,
+                date: Date.now()
+            }]
+        }
+    }, function(err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(result);
+        }
+      });
+});
+
+/*** PUT A ACTIVITY ***/
+router.put('/activities/:idUser', (req, res, next) => {
+    const id = req.params.idUser;
+    User.updateOne({ _id: id }, {
+        $addToSet: {
+            healthInformation: [{
+                calories: req.body.healthInformation.calories,
+                date: Date.now(),
+                weight: req.body.healthInformation.weight,
+                height: req.body.healthInformation.height,
+            }],
+        }
+    }, function(err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(result);
+        }
+      });
+});
+
+/*** PUT A HEALTH INFORMATION ***/
+router.put('/hi/:idUser', (req, res, next) => {
+    const id = req.params.idUser;
+    User.updateOne({ _id: id }, {
+        $addToSet: {
+            activities: [{
+                sum: req.body.activities.sum,
+                _idExercice: req.body.activities._idExercice,
+            }],
+        }
+    }, function(err, result) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(result);
+        }
+      });
 });
 
 /***** DELETE REQUEST *****/
@@ -52,5 +114,8 @@ router.delete('/:idUser', (req, res, next) => {
         res.status(500).json({ error: error });
     });
 });
+
+/***** LOGIN AND SIGNUP *****/
+
 
 module.exports = router;

@@ -9,8 +9,8 @@ const postSchema = mongoose.Schema({
     image: String,
     idUser: String,
     comments: [{
-        _idComments: mongoose.Schema.Types.ObjectId,
         text: String,
+        date: Date,
         idUser: String,
     }],
 
