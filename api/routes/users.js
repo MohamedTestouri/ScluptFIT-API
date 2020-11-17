@@ -8,9 +8,9 @@ const User = require('../models/user');
 
 /***** GET REQUEST *****/
 /*** GET A USER ***/
-router.get('/:idUser', (req, res, next) => {
+router.get('/find/:idUser', (req, res, next) => {
     const id = req.params.idUser;
-    User.findById(id).exec.then(doc => {
+    User.findById(id).exec().then(doc => {
         if (doc) {
             console.log(doc);
             res.status(200).json(doc);
