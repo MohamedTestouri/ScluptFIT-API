@@ -46,8 +46,9 @@ router.post('/signup', (req, res, next) => {
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
                         healthInformation: [{
-                           calories: req.body.healthInformation.calories,
-                            date: Date.now(),
+                            calories: req.body.healthInformation.calories,
+                            steps: req.body.healthInformation.steps,
+                            date: req.body.healthInformation.date,
                             weight: req.body.healthInformation.weight,
                             height: req.body.healthInformation.height,
                         }],
@@ -135,6 +136,7 @@ router.put('/hi/:idUser', (req, res, next) => {
         $addToSet: {
             healthInformation: [{
                 calories: req.body.healthInformation.calories,
+                steps: req.body.healthInformation.steps,
                 date: Date.now(),
                 weight: req.body.healthInformation.weight,
                 height: req.body.healthInformation.height,
@@ -167,7 +169,18 @@ router.put('/activities/:idUser', (req, res, next) => {
         }
     });
 });
-
+/*** PATCH AN ACTIVITY ***/
+router.patch('/activities/:idUser/update/:category', (req, res, next) => {
+    const id = req.params.idUser;
+    const category = req.params.category;
+    User.findOneAndUpdate({ _id: id }, { $set: { activities: { sum: req.body.activities.sum, categoryExercice: category } } }, { activities: { categoryExercice: category } }, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
 /***** DELETE REQUEST *****/
 router.delete('/:idUser', (req, res, next) => {
     const id = req.params.idUser;
