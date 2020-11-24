@@ -45,22 +45,7 @@ router.post('/signup', (req, res, next) => {
                         password: hash,
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
-                        healthInformation: [{
-                           calories: req.body.healthInformation.calories,
-                            date: Date.now(),
-                            weight: req.body.healthInformation.weight,
-                            height: req.body.healthInformation.height,
-                        }],
-                        runs: [{
-                            calories: req.body.runs.calories,
-                            distance: req.body.runs.distance,
-                            duration: req.body.runs.duration,
-                            date: Date.now()
-                        }],
-                        activities: [{
-                            sum: req.body.sum,
-                            _idExercice: req.body.activities._idExercice,
-                        }],
+                        
                     });
                     user.save().then(result => {
                         console.log(result);
@@ -135,6 +120,7 @@ router.put('/hi/:idUser', (req, res, next) => {
         $addToSet: {
             healthInformation: [{
                 calories: req.body.healthInformation.calories,
+                steps: req.body.healthInformation.steps,
                 date: Date.now(),
                 weight: req.body.healthInformation.weight,
                 height: req.body.healthInformation.height,
@@ -167,7 +153,18 @@ router.put('/activities/:idUser', (req, res, next) => {
         }
     });
 });
-
+/*** PATCH AN ACTIVITY ***/
+router.patch('/activities/:idUser/update/:category', (req, res, next) => {
+    const id = req.params.idUser;
+    const category = req.params.category;
+    User.findOneAndUpdate({ _id: id }, { $set: { activities: { sum: req.body.activities.sum, categoryExercice: category } } }, { activities: { categoryExercice: category } }, function (err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+});
 /***** DELETE REQUEST *****/
 router.delete('/:idUser', (req, res, next) => {
     const id = req.params.idUser;

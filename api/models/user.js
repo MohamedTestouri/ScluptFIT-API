@@ -10,7 +10,8 @@ const userSchema = mongoose.Schema({
     sexe: { type: String, require: true },
     birthday: { type: Date, require: true },
     healthInformation: [{
-       calories: { type: Number, default: 0 },
+        calories: { type: Number, default: 0 },
+        steps: Number,
         date: Date,
         weight: Number,
         height: Number,
@@ -23,7 +24,7 @@ const userSchema = mongoose.Schema({
     }],
     activities: [{
         sum: { type: Number, default: 0 },
-        _idExercice: { type: String, default: null }
+        categoryExercice: { type: String, default: null }
     }],
 });
 
