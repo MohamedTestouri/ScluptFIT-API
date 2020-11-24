@@ -45,23 +45,7 @@ router.post('/signup', (req, res, next) => {
                         password: hash,
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
-                        healthInformation: [{
-                            calories: req.body.healthInformation.calories,
-                            steps: req.body.healthInformation.steps,
-                            date: req.body.healthInformation.date,
-                            weight: req.body.healthInformation.weight,
-                            height: req.body.healthInformation.height,
-                        }],
-                        runs: [{
-                            calories: req.body.runs.calories,
-                            distance: req.body.runs.distance,
-                            duration: req.body.runs.duration,
-                            date: Date.now()
-                        }],
-                        activities: [{
-                            sum: req.body.sum,
-                            _idExercice: req.body.activities._idExercice,
-                        }],
+                        
                     });
                     user.save().then(result => {
                         console.log(result);
