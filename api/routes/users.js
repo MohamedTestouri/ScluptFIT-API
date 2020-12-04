@@ -98,7 +98,7 @@ router.post('/login', (req, res, next) => {
                 });
             }
             res.status(401).json({
-                message: 'Mail not existe',
+                message: 'Mail does not existe',
             });
         });
     }).catch(error => {
