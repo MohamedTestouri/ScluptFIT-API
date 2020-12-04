@@ -66,7 +66,7 @@ router.post('/login', (req, res, next) => {
         bcrypt.compare(req.body.password, user[0].password, (error, result) => {
             if (error) {
                 return res.status(401).json({
-                    message: 'Mail not found',
+                    message: 'Nothing to show',
                 });
             }
             if (result) {

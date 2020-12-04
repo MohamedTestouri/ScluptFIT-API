@@ -25,8 +25,8 @@ app.use((req, res, next) => {
         res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
         res.status(200).json({});
     }
-});
-*/
+});*/
+
 
 /***** ROUTES IMPORT *****/
 const postsRoutes = require('./api/routes/posts');
