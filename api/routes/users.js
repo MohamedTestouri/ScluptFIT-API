@@ -26,6 +26,22 @@ router.get('/find/:idUser', (req, res, next) => {
     });
 });
 
+/*** GET A USER ***/
+router.get('/find', (req, res, next) => {
+    const id = req.params.idUser;
+    User.find().then(doc => {
+        if (doc) {
+            console.log(doc);
+            res.status(200).json(doc);
+        } else {
+            res.status(404).json({ message: "404 NOT FOUND" });
+        }
+    }).catch(error => {
+        console.log(error);
+        res.status(500).json({ error: error });
+    });
+});
+
 /***** LOGIN AND SIGNUP *****/
 /*** SIGNUP ***/
 router.post('/signup', (req, res, next) => {

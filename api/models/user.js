@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     email: { type: String, require: true, unique: true },
     password: { type: String, require: true },
     sexe: { type: String, require: true },
-    birthday: { type: Date, require: true },
+    birthday: Date,
     healthInformation: [{
         calories: { type: Number, default: 0 },
         steps: Number,
