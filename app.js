@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 /***** UTILS CONFIG *****/
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 /***** DATABASE CONNECTION *****/
