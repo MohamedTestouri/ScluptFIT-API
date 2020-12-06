@@ -107,16 +107,19 @@ router.post('/login', (req, res, next) => {
     });
 })
 
-/***** PUT RESQUEST *****/
-/*** PUT A RUN ***/
-router.put('/runs/:idUser', (req, res, next) => {
+/***** POST RESQUEST *****/
+/*** POST A RUN ***/
+router.post('/runs/:idUser&:calories&:distance&:duration', (req, res, next) => {
     const id = req.params.idUser;
+    const calories = req.params.calories;
+    const distance = req.params.distance;
+    const duration = req.params.duration;
     User.updateOne({ _id: id }, {
         $addToSet: {
             runs: [{
-                calories: req.body.runs.calories,
-                distance: req.body.runs.distance,
-                duration: req.body.runs.duration,
+                calories: calories,
+                distance: distance,
+                duration: duration,
                 date: Date.now()
             }]
         }
