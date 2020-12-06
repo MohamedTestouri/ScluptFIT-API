@@ -113,7 +113,7 @@ router.delete('/comments/delete/:idPost&:idComment', (req,res,next)=>{
 
 /***** UPDATE REQUEST *****/
 /*** UPDATE A POST ***/
-router.patch('/:idPost', (req, res, next) => {
+/*router.patch('/:idPost', (req, res, next) => {
     const id = req.params.idPost;
     const updateOps = {};
     for (const ops of req.body) {
@@ -125,6 +125,26 @@ router.patch('/:idPost', (req, res, next) => {
     }).catch(error => {
         console.log(error);
         res.status(500).json({ error: error });
+    });
+});*/
+router.patch('/likes/:idPost', (req, res, next)=>{
+    const idPost = req.params.idPost;
+    Post.findByIdAndUpdate({_id: idPost}, {$set:{likes: req.body.likes}} ,function (err, result){
+        if(err){
+            res.send(err);
+        }else{
+            res.send(result);
+        }
+    });
+});
+router.patch('/text/:idPost', (req, res, next)=>{
+    const idPost = req.params.idPost;
+    Post.findByIdAndUpdate({_id: idPost}, {$set:{likes: req.body.text}} ,function (err, result){
+        if(err){
+            res.send(err);
+        }else{
+            res.send(result);
+        }
     });
 });
 
