@@ -69,16 +69,17 @@ router.post('/', (req, res, next) => {
         });
     }).catch(error => console.log(error));
 });
-/***** PUT RESQUEST *****/
-/*** PUT A COMMENT ***/
-router.post('/comments/:idPost', (req, res, next) => {
+/*** POST A COMMENT ***/
+router.post('/comments/:idPost&:text&:idUser', (req, res, next) => {
     const id = req.params.idPost;
+    const text = req.params.text;
+    const idUser = req.params.idUser
     Post.updateOne({ _id: id }, {
         $addToSet: {
             comments: [{
-                text: req.body.comments.text,
+                text: text,
                 date: Date.now(),
-                idUser: req.body.comments.idUser
+                idUser: idUser
             }],
         }
     }, function (err, result) {
