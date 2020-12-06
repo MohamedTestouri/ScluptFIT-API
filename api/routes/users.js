@@ -132,8 +132,8 @@ router.post('/runs/:idUser&:calories&:distance&:duration', (req, res, next) => {
     });
 });
 
-/*** PUT A HEALTH INFORMATION ***/
-router.put('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => {
+/*** POST A HEALTH INFORMATION ***/
+router.post('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => {
     const id = req.params.idUser;
     User.updateOne({ _id: id }, {
         $addToSet: {
@@ -154,8 +154,8 @@ router.put('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => {
     });
 });
 
-/*** PUT A ACTIVITY ***/
-router.put('/activities/:idUser&:sum&:idExercice', (req, res, next) => {
+/*** POST A ACTIVITY ***/
+router.post('/activities/:idUser&:sum&:idExercice', (req, res, next) => {
     const id = req.params.idUser;
     const sum = req.params.sum;
     const idExercice= req.params.idExercice
