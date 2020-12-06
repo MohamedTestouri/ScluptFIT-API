@@ -133,16 +133,16 @@ router.post('/runs/:idUser&:calories&:distance&:duration', (req, res, next) => {
 });
 
 /*** PUT A HEALTH INFORMATION ***/
-router.put('/hi/:idUser', (req, res, next) => {
+router.put('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => {
     const id = req.params.idUser;
     User.updateOne({ _id: id }, {
         $addToSet: {
             healthInformation: [{
-                calories: req.body.healthInformation.calories,
-                steps: req.body.healthInformation.steps,
+                calories: req.params.calories,
+                steps: req.params.steps,
                 date: Date.now(),
-                weight: req.body.healthInformation.weight,
-                height: req.body.healthInformation.height,
+                weight: req.params.weight,
+                height: req.params.height,
             }],
         }
     }, function (err, result) {
@@ -155,13 +155,13 @@ router.put('/hi/:idUser', (req, res, next) => {
 });
 
 /*** PUT A ACTIVITY ***/
-router.put('/activities/:idUser', (req, res, next) => {
+router.put('/activities/:idUser&:sum&:idExercice', (req, res, next) => {
     const id = req.params.idUser;
     User.updateOne({ _id: id }, {
         $addToSet: {
             activities: [{
-                sum: req.body.activities.sum,
-                _idExercice: req.body.activities._idExercice,
+                sum: req.params.sum,
+                _idExercice: req.params.idExercice,
             }],
         }
     }, function (err, result) {
