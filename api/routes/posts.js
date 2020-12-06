@@ -78,7 +78,7 @@ router.put('/comments/:idPost', (req, res, next) => {
             comments: [{
                 text: req.body.comments.text,
                 date: Date.now(),
-                idUser : req.body.comments.idUser
+                idUser: req.body.comments.idUser
             }],
         }
     }, function (err, result) {
@@ -109,7 +109,7 @@ router.delete('/comments/delete/:idPost&:idComment', (req,res,next)=>{
     const idComment = req.params.idComment;
     Post.findOneAndDelete
 });
-*/ 
+*/
 
 /***** UPDATE REQUEST *****/
 /*** UPDATE A POST ***/
@@ -127,22 +127,22 @@ router.delete('/comments/delete/:idPost&:idComment', (req,res,next)=>{
         res.status(500).json({ error: error });
     });
 });*/
-router.patch('/likes/:idPost', (req, res, next)=>{
+router.patch('/likes/:idPost', (req, res, next) => {
     const idPost = req.params.idPost;
-    Post.findByIdAndUpdate({_id: idPost}, {$set:{likes: req.body.likes}} ,function (err, result){
-        if(err){
+    Post.findByIdAndUpdate({ _id: idPost }, { $set: { likes: req.body.likes } }, function (err, result) {
+        if (err) {
             res.send(err);
-        }else{
+        } else {
             res.send(result);
         }
     });
 });
-router.patch('/text/:idPost', (req, res, next)=>{
+router.patch('/text/:idPost', (req, res, next) => {
     const idPost = req.params.idPost;
-    Post.findByIdAndUpdate({_id: idPost}, {$set:{likes: req.body.text}} ,function (err, result){
-        if(err){
+    Post.findByIdAndUpdate({ _id: idPost }, { $set: { text: req.body.text } }, function (err, result) {
+        if (err) {
             res.send(err);
-        }else{
+        } else {
             res.send(result);
         }
     });
@@ -152,7 +152,7 @@ router.patch('/text/:idPost', (req, res, next)=>{
 router.patch('/comments/update/:idPost&:idComment', (req, res, next) => {
     const idPost = req.params.idPost;
     const idComment = req.params.idComment;
-    Post.findOneAndUpdate({ _id: idPost }, { $set: { comments:{text: req.body.comments.text} } }, {comments:{_id: idComment}} ,function (err, result) {
+    Post.findOneAndUpdate({ _id: idPost }, { $set: { comments: { text: req.body.comments.text } } }, { comments: { _id: idComment } }, function (err, result) {
         if (err) {
             res.send(err);
         } else {
