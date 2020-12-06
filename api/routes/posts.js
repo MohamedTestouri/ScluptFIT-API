@@ -71,7 +71,7 @@ router.post('/', (req, res, next) => {
 });
 /***** PUT RESQUEST *****/
 /*** PUT A COMMENT ***/
-router.put('/comments/:idPost', (req, res, next) => {
+router.post('/comments/:idPost', (req, res, next) => {
     const id = req.params.idPost;
     Post.updateOne({ _id: id }, {
         $addToSet: {
