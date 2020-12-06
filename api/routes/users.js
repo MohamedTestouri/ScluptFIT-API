@@ -157,11 +157,13 @@ router.put('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => {
 /*** PUT A ACTIVITY ***/
 router.put('/activities/:idUser&:sum&:idExercice', (req, res, next) => {
     const id = req.params.idUser;
+    const sum = req.params.sum;
+    const idExercice= req.params.idExercice
     User.updateOne({ _id: id }, {
         $addToSet: {
             activities: [{
-                sum: req.params.sum,
-                _idExercice: req.params.idExercice,
+                sum: sum,
+                _idExercice: idExercice,
             }],
         }
     }, function (err, result) {
