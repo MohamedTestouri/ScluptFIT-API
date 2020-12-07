@@ -155,15 +155,15 @@ router.post('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => 
 });
 
 /*** POST A ACTIVITY ***/
-router.post('/activities/:idUser&:sum&:idExercice', (req, res, next) => {
+router.post('/activities/:idUser&:sum&:categoryExercice', (req, res, next) => {
     const id = req.params.idUser;
     const sum = req.params.sum;
-    const idExercice= req.params.idExercice
+    const categoryExercice= req.params.categoryExercice
     User.updateOne({ _id: id }, {
         $addToSet: {
             activities: [{
                 sum: sum,
-                _idExercice: idExercice,
+                categoryExercice: categoryExercice,
             }],
         }
     }, function (err, result) {
