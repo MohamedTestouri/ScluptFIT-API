@@ -79,7 +79,7 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', (req, res, next) => {
     User.find({ email: req.body.email }).exec().then(user => {
         if (user.length < 1) { return res.status(401).json({ message: 'Mail not found', }); }
-        bcrypt.compare(req.body.password, user[0].password, (error, result) => {
+      //  bcrypt.compare(req.body.password, user[0].password, (error, result) => {
             if (error) {
                 return res.status(401).json({
                     message: 'Nothing to show',
@@ -99,8 +99,9 @@ router.post('/login', (req, res, next) => {
             }
             res.status(401).json({
                 message: 'Mail does not exist! Try again',
-            });
-        });
+            }
+            );
+      //  });
     }).catch(error => {
         console.log(error);
         res.status(500).json({ error: error });
