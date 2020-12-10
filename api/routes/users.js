@@ -90,7 +90,7 @@ router.post('/login', (req, res, next) => {
                 const token = jwt.sign({
                     email: user[0].email,
                     idUser: user[0]._id,
-                }, process.env.JWT_KEY, {
+                }, proceses.env.JWT_KEY, {
                     expiresIn: "24h"
                 });
                 return res.status(200).json({
@@ -106,7 +106,8 @@ router.post('/login', (req, res, next) => {
         });
     }).catch(error => {
         console.log(error);
-        res.status(500).json({ error: error });
+        res.status(500).json({ message : "None"
+            error: error });
     });
 })
 
