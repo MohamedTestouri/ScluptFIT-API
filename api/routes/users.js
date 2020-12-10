@@ -96,11 +96,11 @@ router.post('/login', (req, res, next) => {
                 return res.status(200).json({
                     message: 'Successful',
                     token: token,
-                   // id : result.user[0]._id
+                   id : result.user[0]._id
                 });
             }
             res.status(401).json({
-                message: 'Mail does not exist! Try again',
+                message: 'Password does not match',
             }
             );
         });
