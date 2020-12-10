@@ -106,7 +106,7 @@ router.post('/login', (req, res, next) => {
         });
     }).catch(error => {
         console.log(error);
-        res.status(500).json({ message : "None"
+        res.status(500).json({ message : "None",
             error: error });
     });
 })
