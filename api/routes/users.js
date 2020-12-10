@@ -83,6 +83,7 @@ router.post('/login', (req, res, next) => {
             if (error) {
                 return res.status(401).json({
                     message: 'Nothing to show',
+                    error : error
                 });
             }
             if (result) {
