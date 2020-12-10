@@ -61,7 +61,7 @@ router.post('/signup', (req, res, next) => {
                         password: hash,
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
-                        
+
                     });
                     user.save().then(result => {
                         console.log(result);
@@ -94,7 +94,8 @@ router.post('/login', (req, res, next) => {
                 });
                 return res.status(200).json({
                     message: 'Successful',
-                    token: token
+                    token: token,
+                    _id: user[0]._id
                 });
             }
             res.status(401).json({
