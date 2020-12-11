@@ -94,8 +94,8 @@ router.post('/login', (req, res, next) => {
                     expiresIn: "24h"
                 });
                 return res.status(200).json({
-                    message: 'Successful',
-                    token: token,
+                    //message: 'Successful',
+                    //token: token,
                    id : user[0]._id
                 });
             }
