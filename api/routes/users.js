@@ -77,6 +77,7 @@ router.post('/signup', (req, res, next) => {
 /*** LOGIN ***/
 router.post('/login', (req, res, next) => {
     User.find({ email: req.body.email }).exec().then(user => {
+       console.log(req.body);
         if (user.length < 1) { return res.status(401).json({ message: 'Mail not found', }); }
         bcrypt.compare(req.body.password, user[0].password, (error, result) => {
             if (error) {
@@ -92,6 +93,7 @@ router.post('/login', (req, res, next) => {
                 }, process.env.JWT_KEY, {
                     expiresIn: "24h"
                 });
+                console.log("this is a user"+user);
                 return res.status(200).json({
                     //message: 'Successful',
                     //token: token,
