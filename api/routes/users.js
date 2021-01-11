@@ -95,8 +95,17 @@ router.post('/login', (req, res, next) => {
                 return res.status(200).json({
                     //message: 'Successful',
                     //token: token,
-                    user: user[0],
-                   // id : user[0]._id
+                    // user: user[0],
+                    id: user[0]._id,
+                    fullName: user[0].fullName,
+                    phone: user[0].phone,
+                    email: user[0].email,
+                    password: user[0].password,
+                    sexe: user[0].sexe,
+                    birthday: user[0].birthday,
+                    healthInformation: user[0].healthInformation,
+                    runs: user[0].runs,
+                    activities: user[0].activities,
                 });
             }
             res.status(401).json({
