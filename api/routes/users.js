@@ -61,7 +61,7 @@ router.post('/signup', (req, res, next) => {
                         password: hash,
                         sexe: req.body.sexe,
                         birthday: req.body.birthday,
-                        
+
                     });
                     user.save().then(result => {
                         console.log(result);
@@ -82,7 +82,7 @@ router.post('/login', (req, res, next) => {
             if (error) {
                 return res.status(401).json({
                     message: 'Nothing to show',
-                    error : error
+                    error: error
                 });
             }
             if (result) {
@@ -95,9 +95,9 @@ router.post('/login', (req, res, next) => {
                 return res.status(200).json({
                     //message: 'Successful',
                     //token: token,
-                    user : user[0],
-                   //id : user[0]._id
-                });
+                    user: user[0],
+                    //id : user[0]._id
+                }, { versionKey: false });
             }
             res.status(401).json({
                 message: 'Password does not match',
@@ -106,8 +106,10 @@ router.post('/login', (req, res, next) => {
         });
     }).catch(error => {
         console.log(error);
-        res.status(500).json({ message : "None",
-            error: error });
+        res.status(500).json({
+            message: "None",
+            error: error
+        });
     });
 })
 
@@ -162,7 +164,7 @@ router.post('/hi/:idUser&:calories&:steps&:weight&:height', (req, res, next) => 
 router.post('/activities/:idUser&:sum&:categoryExercice', (req, res, next) => {
     const id = req.params.idUser;
     const sum = req.params.sum;
-    const categoryExercice= req.params.categoryExercice
+    const categoryExercice = req.params.categoryExercice
     User.updateOne({ _id: id }, {
         $addToSet: {
             activities: [{
