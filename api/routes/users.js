@@ -97,7 +97,7 @@ router.post('/login', (req, res, next) => {
                     //token: token,
                     user: user[0],
                     //id : user[0]._id
-                }, { versionKey: false });
+                });
             }
             res.status(401).json({
                 message: 'Password does not match',
